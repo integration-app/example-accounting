@@ -43,12 +43,6 @@ export function Header() {
                 Integrations
               </Link>
               <Link
-                href="/users"
-                className="inline-flex items-center px-1 pt-1 text-sm font-medium"
-              >
-                Users
-              </Link>
-              <Link
                 href="/ledger-accounts"
                 className="inline-flex items-center px-1 pt-1 text-sm font-medium"
               >
