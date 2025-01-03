@@ -4,7 +4,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { useState, useEffect } from "react"
 import { useTheme } from "next-themes"
-import { Sun, Moon } from "lucide-react"
+import { Sun, Moon, Plus } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
 export function Header() {
@@ -47,6 +47,19 @@ export function Header() {
                 className="inline-flex items-center px-1 pt-1 text-sm font-medium"
               >
                 Users
+              </Link>
+              <Link
+                href="/ledger-accounts"
+                className="inline-flex items-center px-1 pt-1 text-sm font-medium"
+              >
+                Ledger Accounts
+              </Link>
+              <Link
+                href="/journal-entries/new"
+                className="inline-flex items-center gap-2 px-1 pt-1 text-sm font-medium"
+              >
+                <Plus className="h-4 w-4" />
+                Create Journal Entry
               </Link>
             </div>
           </div>

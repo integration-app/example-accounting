@@ -4,6 +4,7 @@ import { Header } from "@/components/header"
 import { inter } from "@/app/fonts"
 import { IntegrationProvider } from "./integration-provider"
 import { AuthProvider } from "./auth-provider"
+import { Toaster } from "sonner"
 
 export const metadata = {
   title: {
@@ -30,6 +31,7 @@ export default function RootLayout({
               <main className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
                 {children}
               </main>
+              <Toaster />
             </IntegrationProvider>
           </AuthProvider>
         </ThemeProvider>
