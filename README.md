@@ -1,70 +1,79 @@
-# Integration Use Case Template
+# Accounting Integration Example
 
-This is a template for an application showcasing integration capabilities using [Integration.app](https://integration.app). The app is built with Next.js and demonstrates how to implement user authentication and integration token generation.
+This is a demo application that shows how to integrate with accounting software using [Integration.app](https://integration.app). The app allows you to:
 
-## Prerequisites
+1. Connect to various accounting systems
+2. Import ledger accounts (chart of accounts)
+3. Create and post journal entries
 
-- Node.js 18+ installed
-- Integration.app workspace credentials (Workspace Key and Secret)
+## Features
 
-## Setup
+- Connect to accounting software through Integration.app
+- Import and view ledger accounts
+- Create double-entry journal entries with multiple lines
+- Dark/Light mode support
+- Modern, responsive UI
 
-1. Clone the repository:
+## Getting Started
+
+### Prerequisites
+
+- Node.js 18 or later
+- MongoDB database
+- Integration.app account and API credentials
+
+### Environment Variables
+
+Create a `.env.local` file in the root directory with the following variables:
 
 ```bash
-git clone <repository-url>
-cd <repository-name>
+# MongoDB connection string
+MONGO_URI=mongodb://your-mongodb-uri
+
+# Integration.app credentials
+INTEGRATION_APP_CLIENT_ID=your-client-id
+INTEGRATION_APP_CLIENT_SECRET=your-client-secret
 ```
 
+### Installation
+
+1. Clone the repository
 2. Install dependencies:
 
 ```bash
 npm install
-# or
-yarn install
 ```
 
-3. Set up environment variables:
-
-```bash
-# Copy the sample environment file
-cp .env-sample .env
-```
-
-4. Edit `.env` and add your Integration.app credentials:
-
-```env
-INTEGRATION_APP_WORKSPACE_KEY=your_workspace_key_here
-INTEGRATION_APP_WORKSPACE_SECRET=your_workspace_secret_here
-```
-
-You can find these credentials in your Integration.app workspace settings.
-
-## Running the Application
-
-1. Start the development server:
+3. Run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
 ```
 
-2. Open [http://localhost:3000](http://localhost:3000) in your browser.
+4. Open [http://localhost:3000](http://localhost:3000) in your browser
+
+## Usage
+
+1. Start by connecting your accounting software in the Integrations page
+2. Import your chart of accounts from the Ledger Accounts page
+3. Create journal entries using the Create Journal Entry form
 
 ## Project Structure
 
 - `/src/app` - Next.js app router pages and API routes
 - `/src/components` - Reusable React components
 - `/src/lib` - Utility functions and helpers
-- `/public` - Static assets
+- `/src/hooks` - Custom React hooks
+- `/src/models` - MongoDB models
 
-## Available Scripts
+## Technologies
 
-- `npm run dev` - Start development server with hot reload
-- `npm run build` - Build the application for production
-- `npm run start` - Start the production server
-- `npm run lint` - Run ESLint to check code quality
+- [Next.js 14](https://nextjs.org/) - React framework
+- [TypeScript](https://www.typescriptlang.org/) - Type safety
+- [Tailwind CSS](https://tailwindcss.com/) - Styling
+- [shadcn/ui](https://ui.shadcn.com/) - UI components
+- [MongoDB](https://www.mongodb.com/) - Database
+- [Integration.app](https://integration.app) - Accounting integrations
 
 ## License
 
