@@ -28,11 +28,11 @@ Create a `.env.local` file in the root directory with the following variables:
 
 ```bash
 # MongoDB connection string
-MONGO_URI=mongodb://your-mongodb-uri
+MONGODB_URI=mongodb://your-mongodb-uri
 
 # Integration.app credentials
-INTEGRATION_APP_CLIENT_ID=your-client-id
-INTEGRATION_APP_CLIENT_SECRET=your-client-secret
+INTEGRATION_APP_WORKSPACE_KEY=your-workspace-key
+INTEGRATION_APP_WORKSPACE_SECRET=your-workspace-secret
 ```
 
 ### Installation
