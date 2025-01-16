@@ -37,8 +37,6 @@ export function LedgerAccountsTable({
           <TableRow>
             <TableHead>External ID</TableHead>
             <TableHead>Name</TableHead>
-            <TableHead>Created At</TableHead>
-            <TableHead>Updated At</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -51,18 +49,12 @@ export function LedgerAccountsTable({
                 <TableCell>
                   <Skeleton className="h-6 w-[150px]" />
                 </TableCell>
-                <TableCell>
-                  <Skeleton className="h-6 w-[100px]" />
-                </TableCell>
-                <TableCell>
-                  <Skeleton className="h-6 w-[100px]" />
-                </TableCell>
               </TableRow>
             ))
           ) : ledgerAccounts.length === 0 ? (
             <TableRow>
               <TableCell
-                colSpan={4}
+                colSpan={2}
                 className="text-center text-muted-foreground"
               >
                 No ledger accounts found
@@ -75,12 +67,6 @@ export function LedgerAccountsTable({
                   {account.externalId}
                 </TableCell>
                 <TableCell>{account.name}</TableCell>
-                <TableCell>
-                  {new Date(account.createdAt).toLocaleDateString()}
-                </TableCell>
-                <TableCell>
-                  {new Date(account.updatedAt).toLocaleDateString()}
-                </TableCell>
               </TableRow>
             ))
           )}

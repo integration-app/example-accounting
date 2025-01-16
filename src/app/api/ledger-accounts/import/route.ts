@@ -9,6 +9,15 @@ interface ExternalLedgerAccount {
   name: string;
 }
 
+interface GetLedgerAccountsResponse {
+  records: ExternalLedgerAccount[];
+  cursor?: string;
+}
+
+interface IntegrationError extends Error {
+  data?: unknown;
+}
+
 export async function POST(request: NextRequest) {
   try {
     const auth = getAuthFromRequest(request);
@@ -35,21 +44,27 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // 3. Get ledger accounts from the accounting system via Integration.app
-    const result = await client
-      .connection(firstConnection.id)
-      .action('get-ledger-accounts')
-      .run();
+    // 3. Get all ledger accounts from the accounting system via Integration.app
+    const allExternalAccounts: ExternalLedgerAccount[] = [];
+    let cursor: string | undefined = undefined;
 
-    // Type assertion since we know the shape of the response
-    const externalAccounts = (result.output.records as unknown as ExternalLedgerAccount[]);
+    do {
+      const result = await client
+        .connection(firstConnection.id)
+        .action('get-ledger-accounts')
+        .run(cursor ? { cursor } : undefined);
+
+      const response = result.output as GetLedgerAccountsResponse;
+      allExternalAccounts.push(...response.records);
+      cursor = response.cursor;
+    } while (cursor);
 
     // 4. Delete existing ledger accounts for this customer
     await LedgerAccount.deleteMany({ customerId: auth.customerId });
 
     // 5. Create new ledger accounts from the imported data
     const ledgerAccounts = await LedgerAccount.create(
-      externalAccounts.map((extAccount) => ({
+      allExternalAccounts.map((extAccount) => ({
         externalId: extAccount.id,
         name: extAccount.name,
         customerId: auth.customerId,
@@ -59,8 +74,12 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ ledgerAccounts }, { status: 200 });
   } catch (error) {
     console.error('Error importing ledger accounts:', error);
+    const integrationError = error as IntegrationError;
     return NextResponse.json(
-      { error: 'Failed to import ledger accounts' },
+      { 
+        error: integrationError.message || 'Failed to import ledger accounts',
+        data: integrationError.data 
+      },
       { status: 500 }
     );
   }

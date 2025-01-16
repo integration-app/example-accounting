@@ -1,6 +1,7 @@
 import useSWR from 'swr';
 import { LedgerAccountsResponse } from '@/types/ledger-account';
 import { authenticatedFetcher, getAuthHeaders } from '@/lib/fetch-utils';
+import { toast } from 'sonner';
 
 export function useLedgerAccounts() {
   const { data, error, isLoading, mutate } = useSWR<LedgerAccountsResponse>(
@@ -19,7 +20,10 @@ export function useLedgerAccounts() {
         headers: getAuthHeaders(),
       });
 
+      const responseData = await response.json();
+      
       if (!response.ok) {
+        toast.error(JSON.stringify(responseData, null, 2));
         throw new Error('Failed to import ledger accounts');
       }
 
