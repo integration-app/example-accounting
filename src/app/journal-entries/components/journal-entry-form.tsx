@@ -38,7 +38,7 @@ const journalEntryLineSchema = z.object({
 })
 
 const journalEntrySchema = z.object({
-  lines: z
+  lineItems: z
     .array(journalEntryLineSchema)
     .min(1, "At least one line is required")
     .refine(
@@ -60,7 +60,7 @@ type JournalEntryLine = {
 }
 
 type JournalEntryFormValues = {
-  lines: JournalEntryLine[]
+  lineItems: JournalEntryLine[]
 }
 
 export function JournalEntryForm() {
@@ -70,7 +70,7 @@ export function JournalEntryForm() {
   const form = useForm<JournalEntryFormValues>({
     resolver: zodResolver(journalEntrySchema),
     defaultValues: {
-      lines: [
+      lineItems: [
         {
           amount: undefined,
           currency: "USD",
@@ -82,7 +82,7 @@ export function JournalEntryForm() {
   })
 
   const { fields, append, remove } = useFieldArray({
-    name: "lines",
+    name: "lineItems",
     control: form.control,
   })
 
@@ -134,7 +134,7 @@ export function JournalEntryForm() {
 
       // Reset form to initial state
       form.reset({
-        lines: [
+        lineItems: [
           {
             amount: undefined,
             currency: "USD",
@@ -164,7 +164,7 @@ export function JournalEntryForm() {
             >
               <FormField
                 control={form.control}
-                name={`lines.${index}.amount`}
+                name={`lineItems.${index}.amount`}
                 render={({ field }) => (
                   <FormItem className="flex-1">
                     <FormLabel>Amount</FormLabel>
@@ -183,7 +183,7 @@ export function JournalEntryForm() {
 
               <FormField
                 control={form.control}
-                name={`lines.${index}.currency`}
+                name={`lineItems.${index}.currency`}
                 render={({ field }) => (
                   <FormItem className="w-24">
                     <FormLabel>Currency</FormLabel>
@@ -209,7 +209,7 @@ export function JournalEntryForm() {
 
               <FormField
                 control={form.control}
-                name={`lines.${index}.type`}
+                name={`lineItems.${index}.type`}
                 render={({ field }) => (
                   <FormItem className="w-32">
                     <FormLabel>Type</FormLabel>
@@ -234,7 +234,7 @@ export function JournalEntryForm() {
 
               <FormField
                 control={form.control}
-                name={`lines.${index}.ledgerAccountId`}
+                name={`lineItems.${index}.ledgerAccountId`}
                 render={({ field }) => (
                   <FormItem className="flex-1">
                     <FormLabel>Ledger Account</FormLabel>
